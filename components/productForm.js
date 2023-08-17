@@ -9,6 +9,7 @@ export default function ProductForm({
     _id,
     title:existingTitle,
     category:existingCategory,
+    properties:existingProperties,
     description:existingDescription,
     price:existingPrice,
     images:existingImages,
@@ -21,6 +22,7 @@ export default function ProductForm({
     const [goToProducts, setGoToProducts] = useState(false);
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState(existingCategory || '');
+    const [productProperties, setProductProperties] = useState(existingProperties || {});
 
     useEffect(() => {
         axios.get('/api/categories').then(result => {
@@ -33,7 +35,11 @@ export default function ProductForm({
     console.log(_id);
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = {title,category,description,price,images};
+        const data = {
+            title,category,
+            properties: productProperties,
+            description,price,images
+        };
         if(_id){
             await axios.put('/api/products', {...data,_id});
         } else {
@@ -66,6 +72,14 @@ export default function ProductForm({
         setImages(images);
     }
 
+    function setProductProp(propName, value){
+        setProductProperties(prev => {
+            const newProductProps = {...prev};
+            newProductProps[propName] = value;
+            return newProductProps;
+        })
+    }
+
     const propertiesToFill = [];
     if (categories.length > 0 && category) {
         let catInfo = categories.find(({_id}) => _id === category )
@@ -93,7 +107,18 @@ export default function ProductForm({
                     <option value={category._id}>{category.name}</option>)}
             </select><br/>
             {propertiesToFill.length > 0 && propertiesToFill.map(p =>
-                <div>{p.name}</div>    
+                <div className="flex gap-1">
+                    <div>
+                        <div>{p.name}</div>
+                        <select 
+                            value={productProperties[p.name]}
+                            onChange={ev => setProductProp(p.name, ev.target.value)}>
+                            {p.values.map(v => (
+                                <option value={v}>{v}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>    
             )}
             <label>Photos</label>
                 <div className="mb-2 flex flex-wrap gap-2">
