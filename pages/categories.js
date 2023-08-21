@@ -178,7 +178,7 @@ function Categories({swal}) {
                                 <td>{category.name}</td>
                                 <td>{category.parent?.name}</td>
                                 <td>
-                                    <button onClick={() => editCategory(category)} className="btn-primary mr-1">Edit</button>
+                                    <button onClick={() => editCategory(category)} className="btn-primary mr-1 mb-1">Edit</button>
                                     <button
                                         className="btn-primary"
                                         onClick={() => deleteCategory(category)}>
