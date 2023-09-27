@@ -107,16 +107,18 @@ export default function ProductForm({
                     <option value={category._id}>{category.name}</option>)}
             </select><br/>
             {propertiesToFill.length > 0 && propertiesToFill.map(p =>
-                <div className="flex gap-1">
+                <div className="">
                     <div>
-                        <div>{p.name}</div>
-                        <select 
-                            value={productProperties[p.name]}
-                            onChange={ev => setProductProp(p.name, ev.target.value)}>
-                            {p.values.map(v => (
-                                <option value={v}>{v}</option>
-                            ))}
-                        </select>
+                        <label>{p.name[0].toUpperCase()+p.name.substring(1)}</label>
+                        <div>    
+                            <select 
+                                value={productProperties[p.name]}
+                                onChange={ev => setProductProp(p.name, ev.target.value)}>
+                                {p.values.map(v => (
+                                    <option value={v}>{v}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
                 </div>    
             )}
@@ -127,8 +129,8 @@ export default function ProductForm({
                     className="flex flex-wrap gap-1"
                     setList={updateImagesOrder}>
                         {!!images?.length && images.map(link => (
-                        <div key={link} className="h-24 rounded-sm">
-                            <img src={link} alt="" className="rounded-lg"/>
+                        <div key={link} className="h-24 rounded-md bg-white p-2 shadow-sm border border-gray-200">
+                            <img src={link} alt="" className="rounded-md"/>
                         </div>
                         ))}
                 </ReactSortable>
@@ -137,7 +139,7 @@ export default function ProductForm({
                             <Spinner/>
                         </div>
                     )}
-                    <label className="w-24 h-24 cursor-pointer text-center flex items-center justify-center text-gray-500 gap-1 rounded-lg bg-gray-300">
+                    <label className="w-24 h-24 cursor-pointer text-center flex items-center justify-center text-primary gap-1 rounded-md bg-white border border-primary shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
                         </svg>

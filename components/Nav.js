@@ -15,7 +15,7 @@ export default function Nav({show}) {
         await signOut();
     }
     return (
-        <aside className={(show? 'left-0': '-left-full') + " top-0 text-gray-500 p-4 fixed w-full bg-bgGray h-full sm:static sm:w-auto transition-all"}>
+        <aside className={(show? 'left-0': '-left-full') + " top-0 text-gray-500 p-4 fixed w-full bg-bgGray h-full md:static md:w-auto transition-all"}>
             <Logo />
             <nav className="flex flex-col gap-2">
                 <Link href={'/'} className={pathname === '/' ? activeLink : inactiveLink}>
